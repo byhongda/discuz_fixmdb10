@@ -208,7 +208,10 @@ class db_driver_mysqli
 		if(empty($this->version)) {
 			$this->version = $this->curlink->server_info;
 		}
-		return $this->version;
+//		return $this->version;		
+		// MariaDB10 workaround byhongda
+		$maria10_wkard = $this->version;
+		return (substr($maria10_wkard,1)=='.' ) ? $maria10_wkard : '9.9.9';
 	}
 
 	function escape_string($str) {

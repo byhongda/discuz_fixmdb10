@@ -140,7 +140,10 @@ class ucserver_db {
 	}
 
 	function version() {
-		return mysql_get_server_info($this->link);
+//		return mysql_get_server_info($this->link);
+		// MariaDB10 workaround byhongda
+		$maria10_wkard = mysql_get_server_info($this->link);
+		return (substr($maria10_wkard,1)=='.' ) ? $maria10_wkard : '9.9.9';
 	}
 
 	function escape_string($str) {

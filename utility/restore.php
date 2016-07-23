@@ -744,7 +744,10 @@ class dbstuff {
 	}
 
 	function version() {
-		return mysql_get_server_info($this->link);
+//		return mysql_get_server_info($this->link);
+		// MariaDB10 workaround byhongda
+		$maria10_wkard = mysql_get_server_info($this->link);
+		return (substr($maria10_wkard,1)=='.' ) ? $maria10_wkard : '9.9.9';
 	}
 
 	function close() {
@@ -868,7 +871,10 @@ class dbstuffi {
 	}
 
 	function version() {
-		return $this->link->server_info;
+//		return $this->link->server_info;
+		// MariaDB10 workaround byhongda
+		$maria10_wkard = $this->link->server_info;
+		return (substr($maria10_wkard,1)=='.' ) ? $maria10_wkard : '9.9.9';
 	}
 
 	function close() {
